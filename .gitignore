@@ -1,0 +1,5 @@
+# Ignorar todos los archivos en el directorio output
+client/output/*
+
+# ¡Pero no ignorar el archivo .gitkeep!
+!client/output/.gitkeep

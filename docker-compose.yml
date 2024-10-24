@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  grobid:
+    image: lfoppiano/grobid:0.7.2
+    ports:
+      - "8070:8070"
+    environment:
+      - JAVA_OPTS=-Xms512m -Xmx1g
+    networks:
+      - grobid-net
+
+  client:
+    build: ./client
+    volumes:
+      - ./client:/app
+      - ./client/pdfs:/app/pdfs
+      - ./client/output:/app/output
+    depends_on:
+      - grobid
+    environment:
+      - GROBID_URL=grobid
+      - GROBID_PORT=8070
+    networks:
+      - grobid-net
+
+networks:
+  grobid-net:
+    driver: bridge
